@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OKToast(
       child: MaterialApp(
-        title: 'Flutter Permissions',
+        title: 'Phone Log',
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
           visualDensity: VisualDensity.adaptivePlatformDensity,
