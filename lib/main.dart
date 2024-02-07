@@ -15,28 +15,34 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OKToast(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Phone Log',
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: MyHomePage(),
+        home: Splash(),
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class Splash extends StatefulWidget {
+  const Splash({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Splash> createState() => _SplashState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SplashState extends State<Splash> {
+  Future<void> delay(int milli) async {
+    await Future.delayed(Duration(milliseconds: milli));
+  }
+
   openPhonelogs() {
-    Navigator.push(
-      context,
+    delay(3000);
+    Navigator.pushReplacement(
+      (context),
       MaterialPageRoute(
         builder: (context) => PhonelogsScreen(),
       ),
@@ -44,8 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   checkpermission_phonelogs() async {
-    if (await Permission.phone.request().isGranted) {
-      await Permission.contacts.request();
+    if (await Permission.phone.request().isGranted &&
+        await Permission.contacts.request().isGranted) {
       openPhonelogs();
     } else {
       showToast("Provide permission to access call logs",
@@ -54,27 +60,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      checkpermission_phonelogs();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Varun'),
-      ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              child: IconButton(
-                onPressed: checkpermission_phonelogs,
-                icon: Icon(Icons.phone),
-                iconSize: 42,
-                color: Colors.white,
-              ),
-              color: Colors.deepPurple,
-              width: MediaQuery.of(context).size.width,
-              height: (MediaQuery.of(context).size.height - 80) / 2,
-            ),
-          ],
+        child: Container(
+          child: Text(
+            'PhoneLog',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );

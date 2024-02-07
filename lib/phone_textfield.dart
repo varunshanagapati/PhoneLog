@@ -18,6 +18,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
     widget.update = (text) {
       print('Called: ' + text);
       setState(() {
+        
         t1.text = text;
       });
     };
@@ -44,7 +45,9 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         keyboardType: TextInputType.phone,
         textInputAction: TextInputAction.done,
         onSubmitted: (value) => {cl.call(t1.text)},
+        
       ),
+      
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './phone_textfield.dart';
 import 'package:call_log/call_log.dart';
 import './callLogs.dart';
+import './phone_textfield.dart';
 
 class PhonelogsScreen extends StatefulWidget {
   const PhonelogsScreen({super.key});
@@ -44,7 +45,7 @@ class _PhonelogsScrrenState extends State<PhonelogsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Log"),
+        title: Text("Call Log"),
       ),
       body: Column(
         children: [
@@ -60,11 +61,11 @@ class _PhonelogsScrrenState extends State<PhonelogsScreen>
                         return GestureDetector(
                           child: Card(
                             child: ListTile(
-                              leading: cl.getAvator(
-                                  entries.elementAt(index).callType),
+                              leading: cl
+                                  .getAvator(entries.elementAt(index).callType),
                               title: cl.getTitle(entries.elementAt(index)),
-                              subtitle: Text(cl.formatDate(new 
-                                      DateTime.fromMillisecondsSinceEpoch(
+                              subtitle: Text(cl.formatDate(
+                                      new DateTime.fromMillisecondsSinceEpoch(
                                           entries.elementAt(index).timestamp
                                               as int)) +
                                   "\n" +
@@ -88,12 +89,13 @@ class _PhonelogsScrrenState extends State<PhonelogsScreen>
                       itemCount: entries!.length,
                     ),
                   );
-                }else{
+                } else {
                   return Center(child: CircularProgressIndicator());
                 }
               })
         ],
       ),
+      
     );
   }
 }
